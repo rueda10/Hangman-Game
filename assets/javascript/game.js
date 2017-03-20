@@ -46,6 +46,7 @@ function startGame() {
 
 function endGame() {
   isGameInProgress = false;
+
 }
 
 document.onkeyup = function(event) {
