@@ -34,11 +34,16 @@ header div {
 header div h1 {
   position: absolute;
   display: inline-table; /* make h1 content box as big as text */
-  bottom: 42px;
-  left: 72px;
+  bottom: 45px;
+  left: 70px;
   background-color: black;
   padding: 0px 30px;
   line-height: 39px;
+}
+
+header img {
+  height: 95%;
+  width: 95%;
 }
 
 /* GAME CONTENT */
@@ -54,22 +59,21 @@ header div h1 {
   height: 400px;
   opacity: 0.9;
   overflow-x: auto;
-}
-
-#new-game {
-  height: inherit;
-}
-
-#new-game .middle-content {
-  height: inherit;
+  font-family: SurvivorFont;
+  font-size: 18pt;
+  margin-bottom: 30px;
 }
 
 /* GAME ON */
-#game-on {
-  font-family: SurvivorFont;
-  font-size: 18pt;
+.middle-content .row {
+  margin: 30px 0px;
 }
 
-#game-on .row {
-  margin: 30px 0px;
+#ready {
+  font-size: 24pt;
+}
+
+.countdown {
+  font-size: 80pt;
+  border: thin solid black;
 }
