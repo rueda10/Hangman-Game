@@ -1,0 +1,75 @@
+@font-face {
+    font-family: SurvivorFont;
+    src: url("../fonts/survivant.ttf");
+}
+
+html, body {
+  height: 100%;
+  min-height: 100%;
+}
+
+body {
+  background-image: url("../images/background04.jpg");
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  text-align: center;
+}
+
+/* HEADER - LOGO */
+header {
+  width: 100%;
+  font-family: SurvivorFont;
+  font-size: 40pt;
+  color: #FDFEFC;
+  margin: 20px 0px;
+}
+
+header div {
+  position: relative;
+  display: inline-block;
+  margin: 0 auto;
+}
+
+header div h1 {
+  position: absolute;
+  display: inline-table; /* make h1 content box as big as text */
+  bottom: 42px;
+  left: 72px;
+  background-color: black;
+  padding: 0px 30px;
+  line-height: 39px;
+}
+
+/* GAME CONTENT */
+.hidden {
+  display: none;
+}
+
+/* NEW GAME */
+.content {
+  background-color: lightgrey;
+  border: thin solid black;
+  display: table;
+  height: 400px;
+  opacity: 0.9;
+  overflow-x: auto;
+}
+
+#new-game {
+  height: inherit;
+}
+
+#new-game .middle-content {
+  height: inherit;
+}
+
+/* GAME ON */
+#game-on {
+  font-family: SurvivorFont;
+  font-size: 18pt;
+}
+
+#game-on .row {
+  margin: 30px 0px;
+}
