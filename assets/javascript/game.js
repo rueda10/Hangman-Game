@@ -20,7 +20,8 @@ var words = [
   "million",
   "twist",
   "outcast",
-  "exile"
+  "exile",
+  "hidden"
 ]
 
 // VARIABLES
@@ -29,8 +30,14 @@ var guessesRemaining = 15;
 var lettersGuessed = [];
 var isGameInProgress = false;
 var currentWord = "";
-var audio = new Audio("./assets/sounds/readygo.mp3");
+// Audio clips
+var readyGoAudio = new Audio("./assets/sounds/readygo.mp3");
+var tribeHasSpokenAudio = new Audio("./assets/sounds/tribehasspoken.mp3");
+var blindsideAudio = new Audio("./assets/sounds/blindside.mp3");
+var oneSurvivorAudio = new Audio("./assets/sounds/onesurvivor.mp3");
+// Game over messages
 var wonMessage = "Congratulations! You guessed the word ";
+var wonMessageTwo = "But, first thing's first. Immunity is back up for grabs...";
 var lostMessage = "Game over, the tribe has spoken. The word was ";
 // Buttons
 var newGameButton = document.getElementById("new-game-button");
@@ -46,7 +53,7 @@ newGameButton.onclick = function() {
     toggleDiv("new-game", "hidden");
     toggleDiv("ready", "hidden");
     wins = 0;
-    audio.play();
+    readyGoAudio.play();
     setTimeout(startCountdown, 750);
 };
 
@@ -89,15 +96,17 @@ function startGame() {
 /**
  * Populates game over div with passed in message
  */
-function gameOver(message) {
+function gameOver(message, messageTwo) {
   isGameInProgress = false;
   toggleDiv("game-on", "hidden");
   toggleDiv("game-over", "hidden");
 
   var messageSpan = document.getElementById("game-over-message");
   var wordSpan = document.getElementById("guessed-word");
+  var messageTwoSpan = document.getElementById("game-over-message-two");
 
   messageSpan.innerHTML = message;
+  messageTwoSpan.innerHTML = messageTwo;
   wordSpan.innerHTML = "'" + currentWord + "'";
 }
 
@@ -111,7 +120,9 @@ function gameOver(message) {
  * guessesRemaining reaches 0.
  */
 document.onkeyup = function(event) {
-  if (isGameInProgress) {
+  console.log(event);
+  if (isGameInProgress &&
+      (event.keyCode >= 65 && event.keyCode <= 90)) {
     var letter = event.key;
 
     if (!lettersGuessed.includes(letter)) {
@@ -123,7 +134,8 @@ document.onkeyup = function(event) {
       } else {
         guessesRemaining--;
         if (guessesRemaining === 0) {
-          gameOver(lostMessage);
+          gameOver(lostMessage, "");
+          blindsideAudio.play();
         }
       }
     }
@@ -132,33 +144,6 @@ document.onkeyup = function(event) {
     setLettersAlreadyGuessed();
   }
 }
-
-/**
- * Audio event listener that starts the game 4
- * seconds into the audio clip. Countdown is done
- * in a weird way because of the way audio's
- * timeupdate works.
- */
-// audio.addEventListener("timeupdate", function(){
-//   var currentTime = parseInt(audio.currentTime);
-//   var countdownSpan = document.getElementById("countdown-number");
-//
-//   if (!isGameInProgress && currentTime === 4) {
-//     toggleDiv("ready", "hidden");
-//     toggleDiv("game-on", "hidden");
-//     startGame();
-//   } else {
-//     if (countdownSpan.innerHTML != currentTime) {
-//       if (currentTime === 1) {
-//         countdownSpan.innerHTML = "3";
-//       } else if (currentTime === 2) {
-//         countdownSpan.innerHTML = "2";
-//       } else if (currentTime === 3) {
-//         countdownSpan.innerHTML = "1";
-//       }
-//     }
-//   }
-// });
 
 /**
  * Displays countdown and starts game
@@ -206,7 +191,8 @@ function guessWord() {
 
   if (wordDiv.innerHTML.indexOf("_") === -1) {
     wins++;
-    gameOver(wonMessage);
+    gameOver(wonMessage, wonMessageTwo);
+    oneSurvivorAudio.play();
   }
 }
 
