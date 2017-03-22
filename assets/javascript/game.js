@@ -30,6 +30,7 @@ var guessesRemaining = 15;
 var lettersGuessed = [];
 var isGameInProgress = false;
 var currentWord = "";
+var isVolumeOn = true;
 // Audio clips
 var readyGoAudio = new Audio("./assets/sounds/readygo.mp3");
 var tribeHasSpokenAudio = new Audio("./assets/sounds/tribehasspoken.mp3");
@@ -43,7 +44,9 @@ var lostMessage = "Game over, the tribe has spoken. The word was ";
 var newGameButton = document.getElementById("new-game-button");
 var keepPlayingButton = document.getElementById("keep-playing-button");
 var stopPlayingButton = document.getElementById("stop-playing-button");
+var volumeButton = document.getElementById("volume");
 
+// BUTTON ON CLICK LISTENERS
 /**
  * Start Game button handler. Removes initial div
  * and displays game div. Starts countdown with a
@@ -53,7 +56,9 @@ newGameButton.onclick = function() {
     toggleDiv("new-game", "hidden");
     toggleDiv("ready", "hidden");
     wins = 0;
-    readyGoAudio.play();
+    if (isVolumeOn) {
+      readyGoAudio.play();
+    }
     setTimeout(startCountdown, 750);
 };
 
@@ -75,6 +80,25 @@ stopPlayingButton.onclick = function() {
     toggleDiv("game-over", "hidden");
     toggleDiv("new-game", "hidden");
 };
+
+/**
+ * Handles button that turns volume on and off
+ */
+volume.onclick = function() {
+  toggleDiv("volume", "glyphicon-volume-up");
+  toggleDiv("volume", "glyphicon-volume-off");
+  isVolumeOn = !isVolumeOn;
+  if (!isVolumeOn) {
+    readyGoAudio.pause();
+    readyGoAudio.currentTime = 0;
+    blindsideAudio.pause();
+    blindsideAudio.currentTime = 0;
+    oneSurvivorAudio.pause();
+    oneSurvivorAudio.currentTime = 0;
+  }
+}
+
+// GAME
 
 /**
  * Initalizes game settings. Gets new random word,
@@ -135,7 +159,9 @@ document.onkeyup = function(event) {
         guessesRemaining--;
         if (guessesRemaining === 0) {
           gameOver(lostMessage, "");
-          blindsideAudio.play();
+          if (isVolumeOn) {
+            blindsideAudio.play();
+          }
         }
       }
     }
@@ -192,7 +218,9 @@ function guessWord() {
   if (wordDiv.innerHTML.indexOf("_") === -1) {
     wins++;
     gameOver(wonMessage, wonMessageTwo);
-    oneSurvivorAudio.play();
+    if (isVolumeOn) {
+      oneSurvivorAudio.play();
+    }
   }
 }
 

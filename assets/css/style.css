@@ -51,9 +51,8 @@ header img {
   display: none;
 }
 
-/* NEW GAME */
 .section {
-  /*height: 400px;*/
+  height: 400px;
 }
 
 .content {
@@ -67,9 +66,9 @@ header img {
   margin-bottom: 30px;
 }
 
-/*.middle-content {
+.middle-content {
   height: inherit;
-}*/
+}
 
 /* GAME ON */
 .middle-content .row {
@@ -83,4 +82,10 @@ header img {
 .countdown {
   font-size: 80pt;
   border: thin solid black;
+}
+
+.glyphicon {
+  position: absolute !important;
+  right: 3px !important;
+  cursor: pointer !important;
 }
