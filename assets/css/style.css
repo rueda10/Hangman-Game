@@ -51,10 +51,6 @@ header img {
   display: none;
 }
 
-.section {
-  height: 400px;
-}
-
 .content {
   background-color: lightgrey;
   border: thin solid black;
@@ -64,10 +60,14 @@ header img {
   font-family: SurvivorFont;
   font-size: 18pt;
   margin-bottom: 30px;
+  position: relative;
 }
 
 .middle-content {
-  height: inherit;
+  height: 400px;
+  position: absolute;
+  top: 50%;
+  margin-top: 30px;
 }
 
 /* GAME ON */
